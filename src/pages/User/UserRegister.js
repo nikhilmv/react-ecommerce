@@ -5,9 +5,9 @@ import Avatar from '@mui/material/Avatar'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack'; 
 import { Link, useNavigate } from 'react-router-dom';
- 
+import { useDispatch, useSelector } from 'react-redux'; 
 
 export const UserRegister = () => {
 
@@ -57,19 +57,7 @@ export const UserRegister = () => {
                                 {/* <!-- input container column --> */}
 
                                 {/* <!-- gender input --> */}
-                                <div className="flex gap-4 items-center">
-                                    <h2 className="text-md">Your Gender :</h2>
-                                    <div className="flex items-center gap-6" id="radioInput">
-                                        <RadioGroup
-                                            row
-                                            aria-labelledby="radio-buttons-group-label"
-                                            name="radio-buttons-group"
-                                        >
-                                            <FormControlLabel name="gender" value="male"   label="Male" />
-                                            <FormControlLabel name="gender" value="female"   label="Female" />
-                                        </RadioGroup>
-                                    </div>
-                                </div>
+               
                                 {/* <!-- gender input --> */}
 
                                 {/* <!-- input container column --> */}
