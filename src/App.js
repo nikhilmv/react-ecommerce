@@ -4,6 +4,7 @@ import { UserLayout } from "./layouts/UserLayout";
 import { UserPublicRoute } from "./routes/user/UserPublicRoute";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
+import { Home } from "./pages/User/Home/Home";
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
             </UserPublicRoute>
           }
         />
-
+       <Route path="/" element={<Home />} />
    
       </Route>
 
