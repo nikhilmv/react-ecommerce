@@ -8,8 +8,66 @@ import RadioGroup from '@mui/material/RadioGroup'
 import { useSnackbar } from 'notistack'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; 
+import { useUserRegisterMutation } from "../../features/auth/userAuthApi";
 
 export const UserRegister = () => {
+
+
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        gender: "",
+        password: "",
+        cpassword: "",
+    });
+    const [error, setError] = useState("");
+
+    const { name, email, gender, password, cpassword } = user;
+
+    const [avatar, setAvatar] = useState();
+    const [avatarPreview, setAvatarPreview] = useState("preview.png");
+ 
+
+    const [userRegister, { isLoading, isSuccess, error: resError }] = useUserRegisterMutation();
+
+
+    const handleDataChange = (e) => {
+        
+        if (e.target.name === "avatar") {
+         
+            const reader = new FileReader(); 
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setAvatarPreview(reader.result);
+                     setAvatar(reader.result); 
+                  
+                }
+            };
+           
+            reader.readAsDataURL(e.target.files[0]);
+           
+        } else {
+            setUser({ ...user, [e.target.name]: e.target.value });
+        }
+    }
+
+
+
+//register handler
+  const handleRegister = (e) => { 
+    e.preventDefault();
+    setError(""); 
+    userRegister({
+      name,
+      email,
+      gender,
+      password,
+      avatar,
+    });
+  };
+
+
+
 
     return (
         <>
@@ -27,7 +85,7 @@ export const UserRegister = () => {
 
                         {/* <!-- personal info procedure container --> */}
                         <form
-                            
+                            onSubmit={handleRegister}
                             encType="multipart/form-data"
                             className="p-5 sm:p-10"
                         >
@@ -40,8 +98,7 @@ export const UserRegister = () => {
                                         id="full-name"
                                         label="Full Name"
                                         name="name"
-                                   
-                                    
+                                        onChange={handleDataChange} 
                                         required
                                     />
                                     <TextField
@@ -50,14 +107,26 @@ export const UserRegister = () => {
                                         label="Email"
                                         type="email"
                                         name="email"
-                                 
+                                        onChange={handleDataChange} 
                                         required
                                     />
                                 </div>
                                 {/* <!-- input container column --> */}
 
                                 {/* <!-- gender input --> */}
-               
+                                <div className="flex gap-4 items-center">
+                                    <h2 className="text-md">Your Gender :</h2>
+                                    <div className="flex items-center gap-6" id="radioInput">
+                                        <RadioGroup
+                                            row
+                                            aria-labelledby="radio-buttons-group-label"
+                                            name="radio-buttons-group"
+                                        >
+                                            <FormControlLabel name="gender" value="male" onChange={handleDataChange} control={<Radio required />} label="Male" />
+                                            <FormControlLabel name="gender" value="female" onChange={handleDataChange} control={<Radio required />} label="Female" />
+                                        </RadioGroup>
+                                    </div>
+                                </div>
                                 {/* <!-- gender input --> */}
 
                                 {/* <!-- input container column --> */}
@@ -66,25 +135,27 @@ export const UserRegister = () => {
                                         id="password"
                                         label="Password"
                                         type="password"
+                                        value={password}
                                         name="password"
-                         
+                                        onChange={handleDataChange} 
                                         required
                                     />
                                     <TextField
                                         id="confirm-password"
                                         label="Confirm Password"
                                         type="password"
+                                        value={cpassword}
                                         name="cpassword"
-                 
+                                        onChange={handleDataChange} 
                                         required
                                     />
                                 </div>
                                 {/* <!-- input container column --> */}
 
                                 <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center">
-                                    <Avatar
+                                <Avatar
                                         alt="Avatar Preview"
-                         
+                                        src={avatarPreview}
                                         sx={{ width: 56, height: 56 }}
                                     />
                                     <label className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
@@ -92,7 +163,7 @@ export const UserRegister = () => {
                                             type="file"
                                             name="avatar"
                                             accept="image/*"
-                               
+                                            onChange={handleDataChange} 
                                             className="hidden"
                                         />
                                         Choose File
