@@ -9,7 +9,7 @@ import { apiSlice } from "../features/api/apiSlice";
 export const store = configureStore({
   reducer: {
     // sidebarMenu: sidebarSliceReducer,
-    // [apiSlice.reducerPath]: apiSlice.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
     // adminAuth: authSliceReducer,
      userAuth: userAuthSliceReducer,
     // cartOpen: cartOpenSliceReducer,
