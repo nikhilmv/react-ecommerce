@@ -31,11 +31,11 @@ function App() {
             </UserPublicRoute>
           }
         />
-       <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
    
-      </Route>
+    </Route>
 
-      </Routes>
+    </Routes>
     
   );
 }
