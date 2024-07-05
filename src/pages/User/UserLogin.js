@@ -4,23 +4,32 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useUserLoginMutation } from "../../features/auth/userAuthApi";
+ 
 
 
 export const UserLogin = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-
-
-
-    
-     const dispatch = useDispatch();
-      const navigate = useNavigate();
+ 
+    const navigate = useNavigate();
     // const { enqueueSnackbar } = useSnackbar();
     // const location = useLocation();
     const [userLoggedIn, { isLoading, isSuccess, error: resError }] =  useUserLoginMutation();
 
-    const [email, setEmail] = useState("");
-     const [password, setPassword] = useState("");
-     const [error, setError] = useState("");
+    useEffect(() => {
+        if (!isLoading && isSuccess) {
+         // toast.success("Login Successfull");
+          navigate("/");
+        }
+        if (!isLoading && !isSuccess && resError) {
+            setError(resError.data?.message);
+            console.log(resError)
+        }
+      }, [isLoading, isSuccess, navigate, resError]);
+
+
 
    //user Login Handler
    const userLoginHandler = (e) => {

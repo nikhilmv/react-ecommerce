@@ -11,8 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useUserRegisterMutation } from "../../features/auth/userAuthApi";
 
 export const UserRegister = () => {
-
-
+ 
     const [user, setUser] = useState({
         name: "",
         email: "",
