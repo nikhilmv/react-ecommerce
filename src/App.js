@@ -5,9 +5,11 @@ import { UserPublicRoute } from "./routes/user/UserPublicRoute";
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
 import { Home } from "./pages/User/Home/Home";
+import { useUserAuthChecked } from "./hooks/userUserAuthChecked";
 
 
 function App() {
+  const userAuthChecked = useUserAuthChecked();
 
   return (
     <Routes>
@@ -31,9 +33,9 @@ function App() {
             </UserPublicRoute>
           }
         />
-       <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
    
-      </Route>
+    </Route>
 
     </Routes>
     

@@ -22,14 +22,14 @@ export const userAuthApi = apiSlice.injectEndpoints({
           localStorage.setItem(
             "userAuth",
             JSON.stringify({
-              accessToken: result.data.data.accessToken,
-              user: result.data.data.user,
+              accessToken: result.data.data.access_token,
+              user: result.data.data,
             })
           );
           dispatch(
             userLoggedIn({
-              accessToken: result.data.data.accessToken,
-              user: result.data.data.user,
+              accessToken: result.data.data.access_token,
+              user: result.data.data,
             })
           );
         } catch (err) {}
