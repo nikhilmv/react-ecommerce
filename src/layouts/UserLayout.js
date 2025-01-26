@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "../components/user/Headers/Header";
+import { Header } from "../components/user/headers/Header";
+import { Footer } from "../components/user/Footer";
   
 
 export const UserLayout = () => {
@@ -8,6 +9,7 @@ export const UserLayout = () => {
     <>
      <Header />
      <Outlet />
+     <Footer />
     </>
   );
 };

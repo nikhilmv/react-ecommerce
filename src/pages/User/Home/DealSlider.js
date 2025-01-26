@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { NextBtn, PreviousBtn } from './Banner';
 import { Link } from 'react-router-dom';
 // import { offerProducts } from '../../../utils/constants';
-// import { getRandomProducts } from '../../../utils/functions';
+ 
 
 export const settings = {
     dots: false,
@@ -201,7 +201,9 @@ export const DealSlider = ({ title }) => {
         }
     ]
 
-
+    const getRandomProducts = (prodsArray, n) => {
+        return prodsArray.sort(() => 0.5 - Math.random()).slice(0, n)
+    }
     return (
         <section className="bg-white w-full shadow overflow-hidden">
             {/* <!-- header --> */}
@@ -212,8 +214,9 @@ export const DealSlider = ({ title }) => {
             <hr />
             {/* <!-- header --> */}
 
-                <Slider {...settings}>
-                    {offerProducts.map((item, i) => (
+                <Slider {...settings}> 
+
+                    {getRandomProducts(offerProducts, 12).map((item, i) => (
                         <DealSliderProduct {...item} key={i} />
                     ))}
                 </Slider>
