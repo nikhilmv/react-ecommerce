@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { toast } from "react-hot-toast";
-import { DiAptana } from "react-icons/di";
+// import { toast } from "react-hot-toast";
+// import { DiAptana } from "react-icons/di";
 import {
   FaCartPlus,
   FaChartBar,
@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { adminLoggedOut } from "../../../features/auth/authSlice";
 
 export const Sidebar = () => {
 
@@ -25,10 +26,11 @@ export const Sidebar = () => {
     const navigate = useNavigate();
 
  
-  const handleLogout = () => {
+  const handleLogout = () => { 
     localStorage.removeItem("adminAuth");
     dispatch(adminLoggedOut());
-    toast.success("Logout SuccessFull");
+    console.log("Admin Logout SuccessFull");
+     
     navigate("/AdminLogin");
   };
 
@@ -297,7 +299,7 @@ export const Sidebar = () => {
                     className="flex items-center p-2 group text-gray-900 rounded-lg  hover:bg-gray-200 "
                   >
                     <span className="text-[20px] text-gray-500 group-hover:text-gray-900 transition duration-75">
-                      <DiAptana />
+                      {/* <DiAptana /> */}
                     </span>
                     <span className="ml-3">Settings</span>
                   </NavLink>

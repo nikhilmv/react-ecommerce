@@ -10,6 +10,7 @@ import { PublicRoute } from "./routes/admin/PublicRoute";
 import { AdminLogin } from "./components/admin/AdminLogin";
 import { Dashboard }  from "./components/admin/Dashboard";
 import { AdminLayout } from "./layouts/AdminLayout";
+import { AddProduct }  from "./components/admin/Product/AddProduct";
 
 
 function App() {
@@ -56,7 +57,19 @@ function App() {
 
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="/admin/dashboard" element={<Dashboard />} />
+
+        <Route
+          path="/admin/add-product"
+          element={
+            // <PrivateRoute>
+              <AddProduct />
+            // </PrivateRoute>
+          }
+        />
+        
       </Route>
+
+
 
       {/* admin routes end */}
 
