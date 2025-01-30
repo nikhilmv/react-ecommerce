@@ -11,6 +11,8 @@ import ImageIcon from '@mui/icons-material/Image';
 // import { categories } from '../../utils/constants';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
+import { useAddProductMutation } from "../../../features/product/productApi";
+
 
 export const AddProduct = () => {
 
@@ -19,6 +21,11 @@ export const AddProduct = () => {
     const navigate = useNavigate();
 
     //const { loading, success, error } = useSelector((state) => state.newProduct);
+
+
+    const [addProduct, { isLoading: resLoading, isSuccess, error: resError }] =
+    useAddProductMutation();
+
 
     const [highlights, setHighlights] = useState([]);
     const [highlightInput, setHighlightInput] = useState("");
@@ -100,25 +107,25 @@ export const AddProduct = () => {
 
     const newProductSubmitHandler = (e) => {
         e.preventDefault();
-
+       
         // required field checks
-        if (highlights.length <= 0) {
-            enqueueSnackbar("Add Highlights", { variant: "warning" });
-            return;
-        }
-        if (!logo) {
-            enqueueSnackbar("Add Brand Logo", { variant: "warning" });
-            return;
-        }
-        if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
-            return;
-        }
-        if (images.length <= 0) {
-            enqueueSnackbar("Add Product Images", { variant: "warning" });
-            return;
-        }
-
+        // if (highlights.length <= 0) {
+        //     enqueueSnackbar("Add Highlights", { variant: "warning" });
+        //     return;
+        // }
+        // if (!logo) {
+        //     enqueueSnackbar("Add Brand Logo", { variant: "warning" });
+        //     return;
+        // }
+        // if (specs.length <= 1) {
+        //     enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+        //     return;
+        // }
+        // if (images.length <= 0) {
+        //     enqueueSnackbar("Add Product Images", { variant: "warning" });
+        //     return;
+        // }
+        
         const formData = new FormData();
 
         formData.set("name", name);
@@ -142,7 +149,8 @@ export const AddProduct = () => {
         specs.forEach((s) => {
             formData.append("specifications", JSON.stringify(s));
         });
-
+        
+        addProduct(formData);
         // dispatch(createProduct(formData));
     }
 
@@ -154,7 +162,7 @@ export const AddProduct = () => {
     //     if (success) {
     //         enqueueSnackbar("Product Created", { variant: "success" });
     //         // dispatch({ type: NEW_PRODUCT_RESET });
-    //         navigate("/admin/products");
+    //        // navigate("/admin/products");
     //     }
     // }, [dispatch, error, success, navigate, enqueueSnackbar]);
 
@@ -225,6 +233,12 @@ export const AddProduct = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
+                             
+                                  <MenuItem value={"Mobiles"} key={1}> {"Mobiles"} </MenuItem> 
+                                  <MenuItem value={"Electronics"} key={2}> {"Electronics"} </MenuItem> 
+                                  <MenuItem value={"Fashion"} key={3}> {"Fashion"} </MenuItem> 
+
+                            
                             {/* {categories.map((el, i) => (
                                 <MenuItem value={el} key={i}>
                                     {el}

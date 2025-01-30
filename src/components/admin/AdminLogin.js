@@ -36,7 +36,17 @@ export const AdminLogin = () => {
    const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-    adminLogin({ email, password });
+   // adminLogin({ email, password });
+   fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: "test@example.com", password: "123456" }),
+  })
+    .then((res) => res.json())
+    .then((data) => console.log("✅ Response:", data))
+    .catch((err) => console.error("❌ Error:", err));
   };
  
 

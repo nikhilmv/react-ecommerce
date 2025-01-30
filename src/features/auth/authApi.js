@@ -5,14 +5,15 @@ export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     adminLogin: builder.mutation({
       query: (data) => ({
-        url: "/admin/login",
+        url: "/login",
         method: "POST",
         body: data,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
+        // try {
           const result = await queryFulfilled;
- 
+          console.log(result);
+          
           localStorage.setItem(
             "adminAuth",
             JSON.stringify({
@@ -26,7 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
               admin: result.data.data.admin,
             })
           );
-        } catch (err) {}
+        // } catch (err) {}
       },
     }),
   }),
