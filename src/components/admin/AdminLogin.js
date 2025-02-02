@@ -42,7 +42,7 @@ export const AdminLogin = () => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: "test@example.com", password: "123456" }),
+    body: JSON.stringify({ email: email, password: password }),
   })
     .then((res) => res.json())
     .then((data) => console.log("✅ Response:", data))
