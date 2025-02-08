@@ -12,6 +12,7 @@ import ImageIcon from '@mui/icons-material/Image';
 // import MetaData from '../Layouts/MetaData';
 // import BackdropLoader from '../Layouts/BackdropLoader';
 import { useAddProductMutation } from "../../../features/product/productApi";
+ 
 
 
 export const AddProduct = () => {
@@ -26,7 +27,9 @@ export const AddProduct = () => {
     const [addProduct, { isLoading: resLoading, isSuccess, error: resError }] =
     useAddProductMutation();
 
-
+    const adminstate =   useSelector((state) => state.adminAuth.admin);
+     
+ 
     const [highlights, setHighlights] = useState([]);
     const [highlightInput, setHighlightInput] = useState("");
     const [specs, setSpecs] = useState([]);
@@ -48,7 +51,11 @@ export const AddProduct = () => {
 
     const [logo, setLogo] = useState("");
     const [logoPreview, setLogoPreview] = useState("");
+    const [userid, setUserid] = useState("");
 
+
+ 
+    
     const handleSpecsChange = (e) => {
         setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
     }
@@ -57,6 +64,7 @@ export const AddProduct = () => {
         if (!specsInput.title.trim() || !specsInput.title.trim()) return;
         setSpecs([...specs, specsInput]);
         setSpecsInput({ title: "", description: "" });
+        setUserid(adminstate._id); 
     }
 
     const addHighlight = () => {
@@ -105,26 +113,28 @@ export const AddProduct = () => {
         });
     }
 
+    
+ 
     const newProductSubmitHandler = (e) => {
         e.preventDefault();
-       
-        // required field checks
-        // if (highlights.length <= 0) {
-        //     enqueueSnackbar("Add Highlights", { variant: "warning" });
-        //     return;
-        // }
-        // if (!logo) {
-        //     enqueueSnackbar("Add Brand Logo", { variant: "warning" });
-        //     return;
-        // }
-        // if (specs.length <= 1) {
-        //     enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
-        //     return;
-        // }
-        // if (images.length <= 0) {
-        //     enqueueSnackbar("Add Product Images", { variant: "warning" });
-        //     return;
-        // }
+ 
+        //required field checks
+        if (highlights.length <= 0) {
+            enqueueSnackbar("Add Highlights", { variant: "warning" });
+            return;
+        }
+        if (!logo) {
+            enqueueSnackbar("Add Brand Logo", { variant: "warning" });
+            return;
+        }
+        if (specs.length <= 1) {
+            enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+            return;
+        }
+        if (images.length <= 0) {
+            enqueueSnackbar("Add Product Images", { variant: "warning" });
+            return;
+        } 
         
         const formData = new FormData();
 
@@ -137,6 +147,7 @@ export const AddProduct = () => {
         formData.set("warranty", warranty);
         formData.set("brandname", brand);
         formData.set("logo", logo);
+        formData.set("userid", userid);
 
         images.forEach((image) => {
             formData.append("images", image);
@@ -153,6 +164,8 @@ export const AddProduct = () => {
         addProduct(formData);
         // dispatch(createProduct(formData));
     }
+ 
+
 
     // useEffect(() => {
     //     if (error) {

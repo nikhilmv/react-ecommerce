@@ -7,9 +7,10 @@ import {
 } from "../../features/auth/authSelectors";
 
 export const PublicRoute = ({ children }) => { 
-  
+    
   const admin = useSelector(selectAdminInfo);
   const accessToken = useSelector(selectAdminAccessToken);
+ 
 
   return admin !== undefined && accessToken !== undefined ? (
     <Navigate to="/admin/dashboard" />

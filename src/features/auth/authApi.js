@@ -10,24 +10,26 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        // try {
-          const result = await queryFulfilled;
-          console.log(result);
+        try {
+          const result = await queryFulfilled; 
           
           localStorage.setItem(
             "adminAuth",
             JSON.stringify({
-              accessToken: result.data.data.accessToken,
-              admin: result.data.data.admin,
+              accessToken: result.data.accessToken,
+              admin: result.data.user,
             })
           );
           dispatch(
             adminLoggedIn({
-              accessToken: result.data.data.accessToken,
-              admin: result.data.data.admin,
+              accessToken: result.data.accessToken,
+              admin: result.data.user,
             })
           );
-        // } catch (err) {}
+        } catch (err) {
+          console.log("dddd");
+          
+        }
       },
     }),
   }),

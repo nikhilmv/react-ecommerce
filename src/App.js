@@ -11,6 +11,7 @@ import { AdminLogin } from "./components/admin/AdminLogin";
 import { Dashboard }  from "./components/admin/Dashboard";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { AddProduct }  from "./components/admin/Product/AddProduct";
+import { AllProducts }  from "./components/admin/Product/AllProducts";
 
 
 function App() {
@@ -58,15 +59,20 @@ function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="/admin/dashboard" element={<Dashboard />} />
 
-        <Route
-          path="/admin/add-product"
-          element={
+        <Route path="/admin/add-product" element={
             // <PrivateRoute>
               <AddProduct />
             // </PrivateRoute>
           }
         />
         
+        <Route path="/admin/all-products" element={
+            // <PrivateRoute>
+              <AllProducts />
+            // </PrivateRoute>
+          }
+        />
+
       </Route>
 
 

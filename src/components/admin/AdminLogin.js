@@ -17,6 +17,11 @@ export const AdminLogin = () => {
  
     const [adminLogin, { isLoading, isSuccess, error: resError }] =  useAdminLoginMutation();
 
+
+   
+    // console.log("Redux State:", useSelector((state) => state.adminAuth));
+    // console.log("Local Storage:", JSON.parse(localStorage.getItem("adminAuth")));
+
     useEffect(() => {
         if (!isLoading && isSuccess) {
          console.log("Admin Login SuccessFull");
@@ -36,17 +41,16 @@ export const AdminLogin = () => {
    const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-   // adminLogin({ email, password });
-   fetch("http://localhost:5000/api/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email: email, password: password }),
-  })
-    .then((res) => res.json())
-    .then((data) => console.log("✅ Response:", data))
-    .catch((err) => console.error("❌ Error:", err));
+   adminLogin({ email, password });
+//    fetch("http://localhost:5000/api/login", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ email: email, password: password }),
+//   }).then((res) => res.json())
+//     .then((data) => console.log("✅ Response:", data))
+//     .catch((err) => console.error("❌ Error:", err));
   };
  
 
