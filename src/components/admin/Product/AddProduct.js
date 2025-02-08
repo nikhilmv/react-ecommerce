@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from "react-hot-toast";
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
@@ -67,10 +68,11 @@ export const AddProduct = () => {
         setUserid(adminstate._id); 
     }
 
-    const addHighlight = () => {
+    const addHighlight = () => {  
         if (!highlightInput.trim()) return;
         setHighlights([...highlights, highlightInput]);
-        setHighlightInput("");
+       setHighlightInput(""); 
+        
     }
 
     const deleteHighlight = (index) => {
@@ -117,24 +119,25 @@ export const AddProduct = () => {
  
     const newProductSubmitHandler = (e) => {
         e.preventDefault();
- 
+      
         //required field checks
-        if (highlights.length <= 0) {
-            enqueueSnackbar("Add Highlights", { variant: "warning" });
+        if (highlights.length <= 0) {   
+            toast.error("Add Highlights"); 
             return;
         }
         if (!logo) {
-            enqueueSnackbar("Add Brand Logo", { variant: "warning" });
+            toast.error("Add Brand Logo"); 
             return;
         }
         if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", { variant: "warning" });
+            toast.error("Add Minimum 2 Specifications"); 
             return;
         }
         if (images.length <= 0) {
-            enqueueSnackbar("Add Product Images", { variant: "warning" });
+            toast.error("Add Product Images"); 
             return;
         } 
+        
         
         const formData = new FormData();
 
@@ -167,17 +170,12 @@ export const AddProduct = () => {
  
 
 
-    // useEffect(() => {
-    //     if (error) {
-    //         enqueueSnackbar(error, { variant: "error" });
-    //         // dispatch(clearErrors());
-    //     }
-    //     if (success) {
-    //         enqueueSnackbar("Product Created", { variant: "success" });
-    //         // dispatch({ type: NEW_PRODUCT_RESET });
-    //        // navigate("/admin/products");
-    //     }
-    // }, [dispatch, error, success, navigate, enqueueSnackbar]);
+    useEffect(() => {
+        if (!resLoading && isSuccess) {
+            toast.success("Product Added SuccessFull");
+            return navigate("/admin/all-products");
+          }
+    }, [resLoading, isSuccess, resError, navigate]);
 
     return (
         <>
@@ -296,7 +294,7 @@ export const AddProduct = () => {
 
                         <div className="flex flex-col gap-1.5">
                             {highlights.map((h, i) => (
-                                <div className="flex justify-between rounded items-center py-1 px-2 bg-green-50">
+                                <div key={i} className="flex justify-between rounded items-center py-1 px-2 bg-green-50">
                                     <p className="text-green-800 text-sm font-medium">{h}</p>
                                     <span onClick={() => deleteHighlight(i)} className="text-red-600 hover:bg-red-100 p-1 rounded-full cursor-pointer">
                                         <DeleteIcon />
@@ -347,7 +345,7 @@ export const AddProduct = () => {
 
                     <div className="flex flex-col gap-1.5">
                         {specs.map((spec, i) => (
-                            <div className="flex justify-between items-center text-sm rounded bg-blue-50 py-1 px-2">
+                            <div  key={i} className="flex justify-between items-center text-sm rounded bg-blue-50 py-1 px-2">
                                 <p className="text-gray-500 font-medium">{spec.title}</p>
                                 <p>{spec.description}</p>
                                 <span onClick={() => deleteSpec(i)} className="text-red-600 hover:bg-red-200 bg-red-100 p-1 rounded-full cursor-pointer">
