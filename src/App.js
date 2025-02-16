@@ -7,12 +7,14 @@ import { UserRegister } from "./pages/User/UserRegister";
 import { Home } from "./pages/User/Home/Home";
 import { useUserAuthChecked } from "./hooks/userUserAuthChecked";
 import { PublicRoute } from "./routes/admin/PublicRoute";
+import { PrivateRoute } from "./routes/admin/PrivateRoute";
 import { AdminLogin } from "./components/admin/AdminLogin";
 import { Dashboard }  from "./components/admin/Dashboard";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { AddProduct }  from "./components/admin/Product/AddProduct";
-import { AllProducts }  from "./components/admin/Product/AllProducts";
+import { AllProducts }  from "./components/admin/Product/AllProducts"; 
 
+import { Products } from "./pages/User/Product/Products";
 
 function App() {
   const userAuthChecked = useUserAuthChecked();
@@ -21,7 +23,7 @@ function App() {
     <Routes>
 
       <Route
-        path="/AdminLogin"
+        path="/admin"
         element={
           <PublicRoute>
             <AdminLogin />
@@ -50,6 +52,11 @@ function App() {
         />
         <Route path="/" element={<Home />} />
    
+
+        <Route path="/products" element={<Products />} />
+
+        <Route path="/products/:keyword" element={<Products />} />
+
       </Route>
       {/* user routes end */}
 
@@ -57,7 +64,11 @@ function App() {
       {/* admin routes start */}
 
       <Route path="/admin" element={<AdminLayout />}>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={
+            <PrivateRoute>
+              <Dashboard /> 
+            </PrivateRoute>
+          } />
 
         <Route path="/admin/add-product" element={
             // <PrivateRoute>

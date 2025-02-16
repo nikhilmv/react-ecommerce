@@ -7,38 +7,34 @@ import Actions from '../Actions';
 import { useNavigate } from "react-router-dom";
 
 import { useGetProductsQuery,useDeleteProductMutation } from "../../../features/product/productApi";
-
-
+ 
 export const AllProducts = () => {
     
     const navigate = useNavigate();
-    
+
     const { data, isLoading, isSuccess, isError } = useGetProductsQuery() || {};
-    // console.log(isLoading);
-    // console.log(isSuccess);
-    // console.log(isError);
-    
-    const products = data?.products || [];  
- 
+     
+    const products = data?.products || [];   
+
     const prodsArray = products
-        .filter(product => Object.keys(product).length > 0) // Remove empty objects
+        .filter(product => Object.keys(product).length > 0) 
         .map((product) => ({
-            id: product._id || "", // Fallback empty string if _id is missing
-            name: product.name || "Unnamed Product", // Default name
+            id: product._id || "", 
+            name: product.name || "Unnamed Product",  
             category: product.category || "Unknown",
-            stock: product.stock ?? 0, // Use 0 if stock is undefined
-            price: product.price ?? 0, // Use 0 if price is undefined
-            cprice: product.cuttedPrice ?? 0, // Use 0 if cprice is undefined
-            image: product?.images?.[0]?.url || "/default-image.jpg", // Default image
+            stock: product.stock ?? 0,  
+            price: product.price ?? 0,  
+            cprice: product.cuttedPrice ?? 0,  
+            image: product?.images?.[0]?.url || "/default-image.jpg",  
             rating: product.ratings?? 'null',
         }));
 
  
     const [deleteProductAdmin, { isLoading: isDeleting, isSuccess: isDeleted, isError: deleteError }] = useDeleteProductMutation();
 
-    useEffect(() => {
+    useEffect(() => {  
         if (isDeleted) {
-            navigate("/admin/all-products"); // Change to your listing page URL
+            navigate("/admin/all-products");  
         }
     }, [isDeleted, navigate]);
         

@@ -8,6 +8,7 @@ import {
 
 export const PrivateRoute = ({ children }) => {
   const admin = useSelector(selectAdminInfo);
+console.log("Admin Info:", admin);
 
   const accessToken = useSelector(selectAdminAccessToken);
   return admin !== undefined && accessToken !== undefined ? (
