@@ -15,6 +15,7 @@ import { AddProduct }  from "./components/admin/Product/AddProduct";
 import { AllProducts }  from "./components/admin/Product/AllProducts"; 
 
 import { Products } from "./pages/User/Product/Products";
+import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
 
 function App() {
   const userAuthChecked = useUserAuthChecked();
@@ -54,8 +55,8 @@ function App() {
    
 
         <Route path="/products" element={<Products />} />
-
-        <Route path="/products/:keyword" element={<Products />} />
+ 
+        <Route path="/product/:id" element={<ProductDetails />} />
 
       </Route>
       {/* user routes end */}

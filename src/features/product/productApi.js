@@ -69,8 +69,15 @@ export const productApi = apiSlice.injectEndpoints({
             }),
 
         }),
+        getProductDetails: builder.query({
+          query: (id) => ({
+            url: `/user/product/get-product-detail/${id}`,
+            method: "GET",
+          }),
+        }),
+
 
     }),
 });
 
-export const {  useGetProductsQuery, useAddProductMutation, useDeleteProductMutation, useGetProductsFrontQuery } = productApi;
+export const {  useGetProductsQuery, useAddProductMutation, useDeleteProductMutation, useGetProductsFrontQuery,useGetProductDetailsQuery } = productApi;

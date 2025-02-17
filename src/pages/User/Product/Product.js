@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 
 export const Product = ({productObj}) => { 
-    const { _id, name, images, ratings, numOfReviews, price, cuttedPrice } = productObj;
+    const { _id, name, images, ratings, numOfReviews, price, cuttedPrice,brand } = productObj;
  
-
+   
     function  getDiscount(price, cuttedPrice)  {  
         return (((cuttedPrice - price) / cuttedPrice) * 100).toFixed();
     }
