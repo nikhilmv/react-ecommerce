@@ -22,9 +22,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { addToCart } from "../../../features/cart/addToCartSlice";
 
 export const  ProductDetails = () => {
 
+    const cartItems = useSelector((state) => state.cartItems.cartItems);
+    
+    const dispatch = useDispatch(); 
     const categories = [
         "Electronics",
         "TVs & Appliances",
@@ -69,7 +73,7 @@ export const  ProductDetails = () => {
          
         const CustomPrevArrow = ({ onClick }) => {
             return (
-                <div class="slick-arrow slick-prev" onClick={onClick} >
+                <div className="slick-arrow slick-prev" onClick={onClick} >
                     <ArrowBackIosIcon style={{ fontSize: 30, color: "#333" }} />
                 </div>
             );
@@ -108,6 +112,15 @@ export const  ProductDetails = () => {
     const handleDialogClose = () => {
         setOpen(!open);
     }
+ 
+
+    const addToCartHandler = (item) => { 
+         dispatch(addToCart(item));
+    }
+
+    const buyNow = () => {
+       // console.log("Buy Now");
+    }
   return (
     <> 
         {
@@ -142,16 +155,16 @@ export const  ProductDetails = () => {
 
                                 <div className="w-full flex gap-3">
                                     {/* <!-- add to cart btn --> */}
-                                    {/* {product.stock > 0 && (
-                                        <button onClick={itemInCart ? goToCart : addToCartHandler} className="p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-yellow rounded-sm shadow hover:shadow-lg">
+                                     {validProduct.stock > 0 && (
+                                        <button onClick={() => addToCartHandler(validProduct)} className="p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-yellow rounded-sm shadow hover:shadow-lg">
                                             <ShoppingCartIcon />
-                                            {itemInCart ? "GO TO CART" : "ADD TO CART"}
+                                            {"ADD TO CART"}
                                         </button>
-                                    )} */}
-                                    {/* <button onClick={buyNow} disabled={product.stock < 1 ? true : false} className={product.stock < 1 ? "p-4 w-full flex items-center justify-center gap-2 text-white bg-red-600 cursor-not-allowed rounded-sm shadow hover:shadow-lg" : "p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-orange rounded-sm shadow hover:shadow-lg"}>
+                                    )}  
+                                     <button onClick={buyNow} disabled={validProduct.stock < 1 ? true : false} className={validProduct.stock < 1 ? "p-4 w-full flex items-center justify-center gap-2 text-white bg-red-600 cursor-not-allowed rounded-sm shadow hover:shadow-lg" : "p-4 w-1/2 flex items-center justify-center gap-2 text-white bg-primary-orange rounded-sm shadow hover:shadow-lg"}>
                                         <FlashOnIcon />
-                                        {product.stock < 1 ? "OUT OF STOCK" : "BUY NOW"}
-                                    </button> */}
+                                        {validProduct.stock < 1 ? "OUT OF STOCK" : "BUY NOW"}
+                                    </button> 
                                     {/* <!-- add to cart btn --> */}
                                 </div>
 
