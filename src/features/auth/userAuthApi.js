@@ -18,18 +18,19 @@ export const userAuthApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const result = await queryFulfilled;
+          const result = await queryFulfilled;   
+          
           localStorage.setItem(
             "userAuth",
             JSON.stringify({
-              accessToken: result.data.data.access_token,
-              user: result.data.data,
+              accessToken: result.data.accessToken,
+              user: result.data.user,
             })
           );
           dispatch(
             userLoggedIn({
-              accessToken: result.data.data.access_token,
-              user: result.data.data,
+              accessToken: result.data.accessToken,
+              user: result.data.user,
             })
           );
         } catch (err) {}

@@ -8,13 +8,17 @@ import RadioGroup from '@mui/material/RadioGroup'
 import { useSnackbar } from 'notistack';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from "react-hot-toast";
+import { useUserRegisterMutation } from "../../features/auth/userAuthApi";
  
 
 export const UserRegister = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
-
+    const navigate = useNavigate();
+ 
+    const [registerUser, { isLoading: resLoading, isSuccess, error: resError }] =   useUserRegisterMutation();
+    
     const [avatar, setAvatar] = useState(); 
     const [avatarPreview, setAvatarPreview] = useState("preview.png");
 
@@ -25,23 +29,21 @@ export const UserRegister = () => {
         password: "",
         cpassword: "",
     });
-
-    const { name, email, gender, password, cpassword } = user;
  
-
+    const { name, email, gender, password, cpassword } = user;
+  
     const handleRegister = (e) => {
         e.preventDefault();
-        if (password.length < 8) {
-            enqueueSnackbar("Password length must be atleast 8 characters", { variant: "warning" });
-            return;
+        if (password.length < 8) { 
+            toast.error("Password length must be atleast 8 characters");  
         }
         if (password !== cpassword) {
-            enqueueSnackbar("Password Doesn't Match", { variant: "error" });
-            return;
+            toast.error("Password Doesn't Match");  
+
         }
         if (!avatar) {
-            enqueueSnackbar("Select Avatar", { variant: "error" });
-            return;
+            toast.error("Select Avatar");  
+
         }
       
         const formData = new FormData();
@@ -50,8 +52,24 @@ export const UserRegister = () => {
         formData.set("gender", gender);
         formData.set("password", password);
         formData.set("avatar", avatar);
+
+        registerUser(formData);
  
     }
+
+
+    useEffect(() => {
+        if (!resLoading && isSuccess) {
+            toast.success("Registration SuccessFull !");
+            return navigate("/login");
+          }
+          if (resError != undefined) { 
+            toast.error(resError.data?.message);
+            
+          } 
+          
+    }, [resLoading, isSuccess, resError, navigate]);
+
 
     const handleDataChange = (e) => {
         

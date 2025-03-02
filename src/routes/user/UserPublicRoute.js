@@ -9,6 +9,7 @@ import {
 export const UserPublicRoute = ({ children }) => {
   const user = useSelector(selectUserInfo);
   const accessToken = useSelector(selectUserAccessToken); 
+ 
   return user !== undefined && accessToken !== undefined ? (
     <Navigate to="/" />
   ) : (

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useUserLoginMutation } from "../../features/auth/userAuthApi";
+import toast from "react-hot-toast";
  
 
 
@@ -20,12 +21,12 @@ export const UserLogin = () => {
 
     useEffect(() => {
         if (!isLoading && isSuccess) {
-         // toast.success("Login Successfull");
-          navigate("/");
+          toast.success("Login Successfull");
+          //navigate("/");
         }
-        if (!isLoading && !isSuccess && resError) {
-            setError(resError.data?.message);
-            console.log(resError)
+        if (!isLoading && !isSuccess && resError) { 
+            let error = resError.data?.message;
+            toast.error(error);  
         }
       }, [isLoading, isSuccess, navigate, resError]);
 

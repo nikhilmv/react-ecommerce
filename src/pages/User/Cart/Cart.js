@@ -66,7 +66,7 @@ export const Cart = () => {
                     </div>
                     {/* <!-- cart column --> */}
 
-                    {/* <PriceSidebar cartItems={cartItems} /> */}
+                    <PriceSidebar cartItems={cartItems} />
 
                 </div>
                 {/* <!-- row --> */}

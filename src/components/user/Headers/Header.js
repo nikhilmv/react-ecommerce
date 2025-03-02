@@ -3,15 +3,26 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Searchbar from './Searchbar';
 import logo from '../../../assets/images/logo.png';
- 
+import PrimaryDropDownMenu from './PrimaryDropDownMenu';
+import SecondaryDropDownMenu from './SecondaryDropDownMenu';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  selectUserAccessToken,
+  selectUserInfo,
+} from "../../../features/auth/userAuthSelectors";
+
 
 export const Header = () => {
 
  
   const cartItems = useSelector((state) => state.cartItems.cartItems);
+  const userAccessToken = useSelector(selectUserAccessToken);
+  const userInfo = useSelector(selectUserInfo);
+   
+  const [togglePrimaryDropDown, setTogglePrimaryDropDown] = useState(false);
+  const [toggleSecondaryDropDown, setToggleSecondaryDropDown] = useState(false);
 
   return (
 
@@ -33,10 +44,23 @@ export const Header = () => {
         {/* <!-- right navs --> */}
         <div className="flex items-center justify-between ml-1 sm:ml-0 gap-0.5 sm:gap-7 relative">
 
-         
+          {userAccessToken === undefined ?
             <Link to="/login" className="px-3 sm:px-9 py-0.5 text-primary-blue bg-white border font-medium rounded-sm cursor-pointer">Login</Link>
+            :
+            (
+              <span className="userDropDown flex items-center text-white font-medium gap-1 cursor-pointer" onClick={() => setTogglePrimaryDropDown(!togglePrimaryDropDown)}>{userInfo.name && userInfo.name.split(" ", 1)}
+                <span>{togglePrimaryDropDown ? <ExpandLessIcon sx={{ fontSize: "16px" }} /> : <ExpandMoreIcon sx={{ fontSize: "16px" }} />}</span>
+              </span>
+            )
+          } 
  
-           
+          {togglePrimaryDropDown && <PrimaryDropDownMenu setTogglePrimaryDropDown={setTogglePrimaryDropDown} user={userInfo} />}
+
+          {/* <span className="moreDropDown hidden sm:flex items-center text-white font-medium gap-1 cursor-pointer" onClick={() => setToggleSecondaryDropDown(!toggleSecondaryDropDown)}>More
+            <span>{toggleSecondaryDropDown ? <ExpandLessIcon sx={{ fontSize: "16px" }} /> : <ExpandMoreIcon sx={{ fontSize: "16px" }} />}</span>
+          </span>
+
+          {toggleSecondaryDropDown && <SecondaryDropDownMenu />} */}
     
           <Link to="/cart" className="flex items-center text-white font-medium gap-2 relative">
             <span><ShoppingCartIcon /></span>

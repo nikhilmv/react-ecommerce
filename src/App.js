@@ -17,6 +17,7 @@ import { AllProducts }  from "./components/admin/Product/AllProducts";
 import { Products } from "./pages/User/Product/Products";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
 import { Cart } from "./pages/User/Cart/Cart";
+import { NotFound } from "./pages/User/NotFound/NotFound";
 
 function App() {
   const userAuthChecked = useUserAuthChecked();
@@ -60,6 +61,9 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
 
         <Route path="/cart" element={<Cart />} />
+
+
+        <Route path="*" element={<NotFound />} /> 
 
       </Route>
       {/* user routes end */}
