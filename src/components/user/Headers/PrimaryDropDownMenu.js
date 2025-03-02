@@ -13,6 +13,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { userLoggedOut } from "../../../features/auth/userAuthSlice";
+import toast from "react-hot-toast";
  
 const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
 
@@ -22,24 +24,16 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
 
     // const { wishlistItems } = useSelector((state) => state.wishlist);
 
-    const handleLogout = () => {
-        // dispatch(logoutUser());
+    const logoutHandler = () => {
+        dispatch(userLoggedOut());
+        localStorage.removeItem("userAuth"); 
+        toast.success("User LogOut SuccessFull");
         navigate("/login");
-        enqueueSnackbar("Logout Successfully", { variant: "success" });
         setTogglePrimaryDropDown(false);
     }
 
     const navs = [
-        {
-            title: "Supercoin Zone",
-            icon: <OfflineBoltIcon sx={{ fontSize: "18px" }} />,
-            redirect: "/",
-        },
-        {
-            title: "Flipkart Plus Zone",
-            icon: <AddCircleIcon sx={{ fontSize: "18px" }} />,
-            redirect: "/",
-        },
+     
         {
             title: "Orders",
             icon: <ShoppingBagIcon sx={{ fontSize: "18px" }} />,
@@ -90,27 +84,29 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
             {navs.map((item, i) => {
                 const { title, icon, redirect } = item;
 
-                return (
-                    <>
-                        {title === "Wishlist" ? (
-                            <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50" to={redirect} key={i}>
-                                <span className="text-primary-blue">{icon}</span>
-                                {title}
-                                <span className="ml-auto mr-3 bg-gray-100 p-0.5 px-2 text-gray-600 rounded">
-                                    {/* {wishlistItems.length} */}
-                                </span>
-                            </Link>
-                        ) : (
-                            <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50" to={redirect} key={i}>
-                                <span className="text-primary-blue">{icon}</span>
-                                {title}
-                            </Link>
-                        )}
-                    </>
-                )
-            })}
+                    return (
+                        <React.Fragment key={i}>
+                            {title === "Wishlist" ? (
+                                <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50" to={redirect}>
+                                    <span className="text-primary-blue">{icon}</span>
+                                    {title}
+                                    <span className="ml-auto mr-3 bg-gray-100 p-0.5 px-2 text-gray-600 rounded">
+                                        {/* {wishlistItems.length} */}
+                                    </span>
+                                </Link>
+                            ) : (
+                                <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50" to={redirect}>
+                                    <span className="text-primary-blue">{icon}</span>
+                                    {title}
+                                </Link>
+                            )}
+                        </React.Fragment>
+                    );
+                })
+            }
 
-            <div className="pl-3 py-3.5 flex gap-3 items-center hover:bg-gray-50 rounded-b cursor-pointer" onClick={handleLogout} >
+
+            <div className="pl-3 py-3.5 flex gap-3 items-center hover:bg-gray-50 rounded-b cursor-pointer" onClick={logoutHandler} >
                 <span className="text-primary-blue"><PowerSettingsNewIcon sx={{ fontSize: "18px" }} /></span>
                 Logout
             </div>
