@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { UserLayout } from "./layouts/UserLayout"; 
 import { UserPublicRoute } from "./routes/user/UserPublicRoute";
+import { UserPrivateRoute } from "./routes/user/UserPrivateRoute"; 
 import { UserLogin } from "./pages/User/UserLogin";
 import { UserRegister } from "./pages/User/UserRegister";
 import { Home } from "./pages/User/Home/Home";
@@ -17,7 +18,9 @@ import { AllProducts }  from "./components/admin/Product/AllProducts";
 import { Products } from "./pages/User/Product/Products";
 import { ProductDetails } from "./pages/User/ProductDetails/ProductDetails";
 import { Cart } from "./pages/User/Cart/Cart";
+import { Shipping } from "./pages/User/Cart/Shipping";
 import { NotFound } from "./pages/User/NotFound/NotFound";
+import { Account } from "./pages/User/User/Account";
 
 function App() {
   const userAuthChecked = useUserAuthChecked();
@@ -53,16 +56,26 @@ function App() {
             </UserPublicRoute>
           }
         />
-        <Route path="/" element={<Home />} />
-   
+        <Route path="/" element={<Home />} /> 
 
         <Route path="/products" element={<Products />} />
  
         <Route path="/product/:id" element={<ProductDetails />} />
 
         <Route path="/cart" element={<Cart />} />
-
-
+ 
+        <Route path="/shipping" element={
+            <UserPrivateRoute>
+              <Shipping />
+            </UserPrivateRoute>
+          }
+        />
+        <Route path="/account" element={
+            <UserPrivateRoute>
+              <Account />
+            </UserPrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} /> 
 
       </Route>

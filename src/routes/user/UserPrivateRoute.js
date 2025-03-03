@@ -10,6 +10,11 @@ export const UserPrivateRoute = ({ children }) => {
   const user = useSelector(selectUserInfo);
   const accessToken = useSelector(selectUserAccessToken);
 
+   
+  if (!user || !accessToken) {
+      return <p>Loading...</p>; // Or a skeleton loader
+  }
+
   return user !== undefined && accessToken !== undefined ? (
     children
   ) : (

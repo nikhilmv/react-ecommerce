@@ -11,6 +11,7 @@ export const Cart = () => {
     const cartItems = useSelector((state) => state.cartItems.cartItems);
   
     const placeOrderHandler = () => { 
+        navigate('/shipping');
     }
     return(
         <> 

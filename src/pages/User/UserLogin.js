@@ -15,8 +15,9 @@ export const UserLogin = () => {
 
  
     const navigate = useNavigate();
+    const location = useLocation(); 
     // const { enqueueSnackbar } = useSnackbar();
-    // const location = useLocation();
+  
     const [userLoggedIn, { isLoading, isSuccess, error: resError }] =  useUserLoginMutation();
 
     useEffect(() => {
