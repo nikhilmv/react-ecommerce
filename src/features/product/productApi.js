@@ -19,7 +19,6 @@ export const productApi = apiSlice.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
  
-
                     if (data?.success && data?.product) {
                       dispatch(
                         apiSlice.util.updateQueryData("getProducts", undefined, (draft) => {
