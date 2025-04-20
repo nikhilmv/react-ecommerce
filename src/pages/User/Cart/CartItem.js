@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import toast from "react-hot-toast";
 import { addToCart } from "../../../features/cart/addToCartSlice";
 
-const CartItem = ({item }) => {
-    
+const CartItem = ({ item }) => {
+   
     let _id = item._id;
     let name = item.name;
     let brand = item.brand;

@@ -13,54 +13,58 @@ import { useNavigate } from 'react-router-dom';
 import Stepper from './Stepper';
 import toast from "react-hot-toast";
 import states from '../../../utils/states';
-import { useSaveShippingAddressMutation } from "../../../features/shipping/userShippingApi";
-import { useGetShippingAddressQuery } from "../../../features/shipping/userShippingApi";
-
+import { useSaveShippingAddressMutation } from "../../../features/shipping/userShippingApi"; 
+import { saveShippingAddress } from "../../../features/shipping/userShippingSlice";
 export const Shipping = () => {
 
     const cartItems = useSelector((state) => state.cartItems.cartItems);
 
-    // const { shippingInfo } = useSelector((state) => state.shippingInfo);
-
-    const [address, setAddress] = useState( );
-    const [city, setCity] = useState( );
+    const { shippingInfo } = useSelector((state) => state.shippingInfo);
+ 
+    const [address, setAddress] = useState(shippingInfo[0]?.address || '');
+    const [city, setCity] = useState(shippingInfo[0]?.city || '');
     const [country, setCountry] = useState('IN');
-    const [state, setState] = useState( );
-    const [pincode, setPincode] = useState( );
-    const [phoneNo, setPhoneNo] = useState( );
+    const [state, setState] = useState(shippingInfo[0]?.state || '');
+    const [pincode, setPincode] = useState(shippingInfo[0]?.pincode || '');
+    const [phoneNo, setPhoneNo] = useState(shippingInfo[0]?.phoneNo || '');
+    const [landmark, setLandmark] = useState(shippingInfo[0]?.landmark || '');
 
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [saveShippingAddress, { isLoading: resLoading, isSuccess, error: resError }] =
-    useSaveShippingAddressMutation();
+  
+    // const [saveShippingAddress, { isLoading: resLoading, isSuccess, error: resError }] =  useSaveShippingAddressMutation();
 
     const shippingSubmit = (e) => { 
+     
         e.preventDefault();
 
         if (phoneNo.length < 10 || phoneNo.length > 10) {   
            toast.error("Invalid Phone Number");  
         }
+        dispatch(saveShippingAddress({ address, city, country, state, pincode, phoneNo, landmark}));
+        navigate("/order/confirm");
  
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        formData.set("address", address);
-        formData.set("city", city);
-        formData.set("country", country);
-        formData.set("state", state);
-        formData.set("pincode", pincode);
-        formData.set("phoneNo", phoneNo); 
+        // formData.set("address", address);
+        // formData.set("city", city);
+        // formData.set("country", country);
+        // formData.set("state", state);
+        // formData.set("pincode", pincode);
+        // formData.set("phoneNo", phoneNo); 
 
-        saveShippingAddress(formData);
+        // saveShippingAddress(formData);
   
     }
 
-    useEffect(() => {
-        if (!resLoading && isSuccess) {
-            toast.success("Shipping information Added SuccessFull");
-            return navigate("/order/confirm");
-          }
-    }, [resLoading, isSuccess, resError, navigate]);
+    // useEffect(() => {
+    //     if (!resLoading && isSuccess) {
+    //         toast.success("Shipping information Added SuccessFull");
+    //         return navigate("/order/confirm");
+    //       }
+    // }, [resLoading, isSuccess, resError, navigate]);
 
 
     return (
@@ -116,6 +120,8 @@ export const Shipping = () => {
                                         required
                                     />
                                     <TextField
+                                        value={landmark}
+                                        onChange={(e) => setLandmark(e.target.value)}
                                         label="Landmark (Optional)"
                                         fullWidth
                                         variant="outlined"

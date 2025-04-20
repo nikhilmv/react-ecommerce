@@ -21,6 +21,11 @@ import { Cart } from "./pages/User/Cart/Cart";
 import { Shipping } from "./pages/User/Cart/Shipping";
 import { NotFound } from "./pages/User/NotFound/NotFound";
 import { Account } from "./pages/User/User/Account";
+import { OrderConfirm } from "./pages/User/Cart/OrderConfirm";
+import { Payment } from "./pages/User/Cart/Payment";
+
+
+
 
 function App() {
   const userAuthChecked = useUserAuthChecked();
@@ -76,6 +81,20 @@ function App() {
             </UserPrivateRoute>
           }
         />
+        <Route path="/order/confirm" element={
+            <UserPrivateRoute>
+              <OrderConfirm />
+            </UserPrivateRoute>
+          }
+        />
+
+        <Route path="/process/payment" element={
+            <UserPrivateRoute>
+              <Payment />
+            </UserPrivateRoute>
+          }
+        />
+
         <Route path="*" element={<NotFound />} /> 
 
       </Route>

@@ -9,7 +9,7 @@ export const Cart = () => {
     const navigate = useNavigate();
   
     const cartItems = useSelector((state) => state.cartItems.cartItems);
-  
+    
     const placeOrderHandler = () => { 
         navigate('/shipping');
     }
