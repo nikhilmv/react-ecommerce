@@ -55,6 +55,7 @@ export const Products = () => {
         currentPage,
         refetchKey: forceRefetch, 
     });
+ console.log("data", data);
  
  
     const priceHandler = (e, newPrice) => {  

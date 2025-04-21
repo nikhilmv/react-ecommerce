@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { addToCart } from "../../../features/cart/addToCartSlice";
 
 const CartItem = ({ item }) => {
-   
+ 
     let _id = item._id;
     let name = item.name;
     let brand = item.brand;
@@ -57,7 +57,9 @@ const CartItem = ({ item }) => {
             <Link to={`/product/${_id}`} className="flex flex-col sm:flex-row gap-5 items-stretch w-full group">
                 {/* <!-- product image --> */}
                 <div className="w-full sm:w-1/6 h-28 flex-shrink-0">
-                    <img draggable="false" className="h-full w-full object-contain" src={images[0].url} alt={name} />
+                    {images && images.length > 0 && ( 
+                        <img draggable="false" className="h-full w-full object-contain" src={images[0].url} alt={name} />
+                    )} 
                 </div>
                 {/* <!-- product image --> */}
 

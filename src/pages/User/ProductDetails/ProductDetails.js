@@ -114,8 +114,9 @@ export const  ProductDetails = () => {
     }
  
 
-    const addToCartHandler = (item) => { 
-         dispatch(addToCart(item));
+    const addToCartHandler = (item) => {   
+         dispatch(addToCart({ item, type: "default" })); 
+
     }
 
     const buyNow = () => {

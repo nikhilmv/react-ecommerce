@@ -30,19 +30,42 @@ const paymentData = {
 const [payDisable, setPayDisable] = useState(false);
 
 const submitHandler = async (e) => {
+    e.preventDefault();
+
     setPayDisable(true);
 
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+    try {
+        
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
 
-    const { data } = await axios.post(
-        '/api/payment/process',
-        paymentData,
-        config,
-    );
+        const { data } = await axios.post(
+            `${process.env.REACT_APP_BASE_URL}/payment/process`,
+            paymentData,
+            config,
+        );
+       console.log("Payment data", data);
+        
+        // const form = document.createElement("form");
+        // form.setAttribute("method", "post");
+        // form.setAttribute("action", "https://securegw-stage.paytm.in/theia/processTransaction");
+
+        // Object.entries(data).forEach(([key, value]) => {
+        // const input = document.createElement("input");
+        // input.setAttribute("type", "hidden");
+        // input.setAttribute("name", key);
+        // input.setAttribute("value", value);
+        // form.appendChild(input);
+        // });
+
+        // document.body.appendChild(form);
+        // form.submit();
+    } catch (err) {
+        console.error("Payment initiation failed", err);
+    }
 
   
 };
@@ -82,7 +105,8 @@ const submitHandler = async (e) => {
                                         </RadioGroup>
                                     </FormControl>
 
-                         
+                                    <input type="submit" value={`Pay ₹${totalPrice.toLocaleString()}`} disabled={payDisable ? true : false} className={`${payDisable ? "bg-primary-grey cursor-not-allowed" : "bg-primary-orange cursor-pointer"} w-1/2 sm:w-1/4 my-2 py-3 font-medium text-white shadow hover:shadow-lg rounded-sm uppercase outline-none`} />
+                                     
                                 </form>
 
                       
