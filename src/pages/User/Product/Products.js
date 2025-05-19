@@ -33,9 +33,15 @@ const categories = [
 
 export const Products = () => {
 
-    const params = useParams();
-    const location = useLocation();
+    const params = useParams(); 
     const keyword = params.keyword || "";
+  
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+//    const c = queryParams.get("category") || "";
+
+//  console.log(c);
  
     const [category, setCategory] = useState(""); 
     const [forceRefetch, setForceRefetch] = useState(0);
@@ -46,7 +52,7 @@ export const Products = () => {
     // filter toggles
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [ratingsToggle, setRatingsToggle] = useState(true);
-
+ 
    const { data, isLoading, isError, error  } = useGetProductsFrontQuery({
         keyword,
         category,
@@ -55,8 +61,7 @@ export const Products = () => {
         currentPage,
         refetchKey: forceRefetch, 
     });
- console.log("data", data);
- 
+
  
     const priceHandler = (e, newPrice) => {  
         setPrice(newPrice);
