@@ -1,7 +1,15 @@
 # Flipkart - MERN
-Full-Stack Flipkart with Admin Dashboard & Paytm Payment Gateway.
+Full-Stack Ecommerce application with Admin Dashboard & Paytm Payment Gateway.
+**A full-fledged Flipkart-inspired e-commerce web application featuring a robust Admin Dashboard, secure Paytm integration, and powerful backend control.**
 
-[Visit Now](https://react-ecommerce-git-master-nikhil-mvs-projects-7e084e38.vercel.app) 🚀
+🔗 [**Live Demo**](https://react-ecommerce-git-master-nikhil-mvs-projects-7e084e38.vercel.app)  
+📦 Developed using **React.js** and **Redux Toolkit**, integrated with **Cloudinary** for cloud storage and built on a **Node.js** and **Express** backend.
+
+
+## 🧑‍💻 About the Project
+
+This project replicates core features of the Flipkart platform, offering both user and admin experiences. It’s built using the modern **MERN** stack to ensure responsiveness, scalability, and high performance. The frontend leverages **React.js** with **Redux Toolkit** for state management, ensuring smooth data flow and user interaction. On the backend, **Node.js** with **Express.js** powers the API, with **MongoDB** managing data.  
+Media uploads are handled via **Cloudinary**, and **JWT** is used for secure authentication.
 
 ## 🖥️ Tech Stack
 **Frontend:**
