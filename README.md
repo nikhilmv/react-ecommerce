@@ -1,4 +1,4 @@
-# Flipkart - MERN
+# Full-Stack Ecommerce - MERN
 Full-Stack Ecommerce application with Admin Dashboard & Paytm Payment Gateway.
 **A full-fledged Flipkart-inspired e-commerce web application featuring a robust Admin Dashboard, secure Paytm integration, and powerful backend control.**
 
