@@ -5,19 +5,20 @@ import {
   selectUserAccessToken,
   selectUserInfo,
 } from "../../features/auth/userAuthSelectors";
+import toast from "react-hot-toast";
 
 export const UserPrivateRoute = ({ children }) => {
   const user = useSelector(selectUserInfo);
   const accessToken = useSelector(selectUserAccessToken);
 
-   
+  
+  // If both are explicitly null or undefined, redirect to login
   if (!user || !accessToken) {
-      return <p>Loading...</p>; // Or a skeleton loader
+    toast.error("You need to login first");  
+    return <Navigate to="/login" />;  
   }
 
-  return user !== undefined && accessToken !== undefined ? (
-    children
-  ) : (
-    <Navigate to="/login" />
-  );
+  // If both exist, render children
+  return children;
+ 
 };

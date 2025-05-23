@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'; 
 import toast from "react-hot-toast";
-import { addToCart } from "../../../features/cart/addToCartSlice";
+import { addToCart,removeCart } from "../../../features/cart/addToCartSlice";
 
 const CartItem = ({ item }) => {
  
@@ -48,8 +48,7 @@ const CartItem = ({ item }) => {
     }
     
     const removeCartItem = (id) => {
-        //dispatch(removeItemsFromCart(id));
- 
+        dispatch(removeCart(id)); 
     }
     return (
         <div className="flex flex-col gap-3 py-5 pl-2 sm:pl-6 border-b overflow-hidden" key={_id}>
