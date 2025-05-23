@@ -2,7 +2,7 @@
 Full-Stack Ecommerce application with Admin Dashboard & Paytm Payment Gateway.
 **A full-fledged Flipkart-inspired e-commerce web application featuring a robust Admin Dashboard, secure Paytm integration, and powerful backend control.**
 
-🔗 [**Live Demo**](https://react-ecommerce-git-master-nikhil-mvs-projects-7e084e38.vercel.app)  
+🔗 [**Live Demo**](https://react-ecommerce-phi-puce.vercel.app/)  
 📦 Developed using **React.js** and **Redux Toolkit**, integrated with **Cloudinary** for cloud storage and built on a **Node.js** and **Express** backend.
 
 
